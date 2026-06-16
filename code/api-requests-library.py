@@ -1,6 +1,8 @@
 import requests
 
-endpoint_url = 'https://api.exchangerate-api.com/v4/latest/gbp'
+API_COM_V_LATEST_ = "https://api.exchangerate-api.com/v4/latest/"
+
+endpoint_url = "https://api.exchangerate-api.com/v4/latest/gbp"
 response = requests.get(endpoint_url)
 response_dict = response.json()
 
@@ -16,16 +18,22 @@ for key in response_dict:
 
 import requests
 
-currencies = ['EGP', 'GMD', 'CLP']
-base_url = "https://api.exchangerate-api.com/v4/latest/"
+currencies = ["EGP", "GMD", "CLP"]
+base_url = API_COM_V_LATEST_
+
+
+def url_builder():
+    global url
+    url = f"{base_url}{currency_code}"
+
 
 for currency in currencies:
-    url = base_url + currency
+    url_builder()
     response = requests.get(url)
     response = response.json()
-    print(response['rates']['USD'])
+    print(response["rates"]["USD"])
 
-# POST Method: 
+# POST Method:
 
 """
 ------- EXAMPLE (INACTIVE) POST REQUEST:---------------
@@ -48,13 +56,7 @@ response = requests.post(endpoint, json=account_data)
 # Converting JSON Data to Strings
 # see json-dump-post.svg
 
-exchange_rate_map = {
-    'EUR': 0.927,
-    'USD': 1,
-    'CAD': 1.33,
-    'JPY': 139.9,
-    'GBP': 0.794
-}
+exchange_rate_map = {"EUR": 0.927, "USD": 1, "CAD": 1.33, "JPY": 139.9, "GBP": 0.794}
 print(type(exchange_rate_map))
 
 import json
@@ -71,15 +73,17 @@ print(type(exchange_rate_map_str))
 
 import requests
 
-currencies = ['EGP', 'GMD', 'CLP']
-base_url = "https://api.exchangerate-api.com/v4/latest/"
+currencies = ["EGP", "GMD", "CLP"]
+base_url = API_COM_V_LATEST_
 
 
 for currency_code in currencies:
-    url = f"{base_url}{currency_code}"
+    url_builder()
     response = requests.get(url)
     response = response.json()
-    print(f'The exchange rate from {currency_code} to USD is {response["rates"]["USD"]}.')
+    print(
+        f"The exchange rate from {currency_code} to USD is {response['rates']['USD']}."
+    )
 
 
 # HTTP Request Error Handling
@@ -98,11 +102,12 @@ Code	Status	Description
 
 import requests
 
-currency_codes = ['cad', 'abc']
-base_url = "https://api.exchangerate-api.com/v4/latest/"
+currency_codes = ["cad", "abc"]
+base_url = API_COM_V_LATEST_
+
 
 for currency_code in currency_codes:
-    url = f"{base_url}{currency_code}"
+    url_builder()
     print(url)
     response = requests.get(url)
     if response.status_code == 200:

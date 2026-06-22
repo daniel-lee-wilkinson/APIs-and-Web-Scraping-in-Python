@@ -1,2 +1,5 @@
-.config.py
-.idea/
+code/config.py
+code/.ipynb_checkpoints
+*.pdf
+.ipynb_checkpoints
+.idea
